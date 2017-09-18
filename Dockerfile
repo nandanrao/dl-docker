@@ -100,8 +100,8 @@ RUN apt-get update && apt-get install -y \
 	rm -rf /var/lib/apt/lists/*
 
 # Install other useful Python packages using pip
-RUN pip --no-cache-dir install --upgrade ipython && \
-	pip --no-cache-dir install \
+RUN pip3 --no-cache-dir install --upgrade ipython && \
+	pip3 --no-cache-dir install \
                 mxnet-cu80 \
 		Cython \
 		ipykernel \
@@ -113,9 +113,8 @@ RUN pip --no-cache-dir install --upgrade ipython && \
 		sphinx \
 		wheel \
 		zmq \
-                seaborn \
 		&& \
-	python -m ipykernel.kernelspec
+	python3 -m ipykernel.kernelspec
 
 # Set up notebook config
 COPY jupyter_notebook_config.py /root/.jupyter/
@@ -127,4 +126,4 @@ COPY run_jupyter.sh /root/
 EXPOSE 6006 8888
 
 WORKDIR "/root"
-CMD ["/bin/bash"]
+CMD ["run_jupyter.sh --allow-root"]
