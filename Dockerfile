@@ -61,7 +61,6 @@ RUN apt-get update && apt-get install -y \
 		python3-dev \
 		python3-tk \
 		python3-numpy \
-                python3-pip \
 		ant \
 		default-jdk \
 		doxygen \
@@ -72,6 +71,12 @@ RUN apt-get update && apt-get install -y \
 
 # Link BLAS library to use OpenBLAS using the alternatives mechanism (https://www.scipy.org/scipylib/building/linux.html#debian-ubuntu)
 	update-alternatives --set libblas.so.3 /usr/lib/openblas-base/libblas.so.3
+
+# Install pip
+RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
+	python3 get-pip.py && \
+	python get-pip.py && \
+	rm get-pip.py
 
 # Add SNI support to Python
 RUN pip3 --no-cache-dir install \
@@ -89,8 +94,6 @@ RUN apt-get update && apt-get install -y \
 		python3-skimage \
 		python3-matplotlib \
 		python3-pandas \
-		python3-sklearn \
-		python3-sympy \
 		&& \
 	apt-get clean && \
 	apt-get autoremove && \
