@@ -57,9 +57,11 @@ RUN apt-get update && apt-get install -y \
 		python-dev \
 		python-tk \
 		python-numpy \
+                python-pip \
 		python3-dev \
 		python3-tk \
 		python3-numpy \
+                python3-pip \
 		ant \
 		default-jdk \
 		doxygen \
@@ -71,13 +73,8 @@ RUN apt-get update && apt-get install -y \
 # Link BLAS library to use OpenBLAS using the alternatives mechanism (https://www.scipy.org/scipylib/building/linux.html#debian-ubuntu)
 	update-alternatives --set libblas.so.3 /usr/lib/openblas-base/libblas.so.3
 
-# Install pip
-RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
-	python get-pip.py && \
-	rm get-pip.py
-
 # Add SNI support to Python
-RUN pip --no-cache-dir install \
+RUN pip3 --no-cache-dir install \
 		pyopenssl \
 		ndg-httpsclient \
 		pyasn1
@@ -85,15 +82,15 @@ RUN pip --no-cache-dir install \
 # Install useful Python packages using apt-get to avoid version incompatibilities with Tensorflow binary
 # especially numpy, scipy, skimage and sklearn (see https://github.com/tensorflow/tensorflow/issues/2034)
 RUN apt-get update && apt-get install -y \
-		python-numpy \
-		python-scipy \
-		python-nose \
-		python-h5py \
-		python-skimage \
-		python-matplotlib \
-		python-pandas \
-		python-sklearn \
-		python-sympy \
+		python3-numpy \
+		python3-scipy \
+		python3-nose \
+		python3-h5py \
+		python3-skimage \
+		python3-matplotlib \
+		python3-pandas \
+		python3-sklearn \
+		python3-sympy \
 		&& \
 	apt-get clean && \
 	apt-get autoremove && \
