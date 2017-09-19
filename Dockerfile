@@ -88,60 +88,46 @@ RUN pip install \
 	 ndg-httpsclient \
       	 pyasn1
 
-# Install useful Python packages using apt-get to avoid version incompatibilities with Tensorflow binary
-# especially numpy, scipy, skimage and sklearn (see https://github.com/tensorflow/tensorflow/issues/2034)
-RUN apt-get update && apt-get install -y \
-		python-numpy \
-		python-scipy \
-		python-nose \
-		python-h5py \
-		python-skimage \
-		python-matplotlib \
-		python-pandas \
-		python3-numpy \
-		python3-scipy \
-		python3-nose \
-		python3-h5py \
-		python3-skimage \
-		python3-matplotlib \
-		python3-pandas \
-		&& \
-	apt-get clean && \
-	apt-get autoremove && \
-	rm -rf /var/lib/apt/lists/*
-
 # Install other useful Python packages using pip
 RUN pip3 install --upgrade ipython && \
-	pip3 install \
-                mxnet-cu80 \
-		Cython \
-		ipykernel \
-		jupyter \
-		path.py \
-		Pillow \
-		pygments \
-		six \
-		sphinx \
-		wheel \
-		zmq \
-		&& \
+    pip3 install \
+        scipy \
+        sklearn \
+        pandas \
+        matplotlib \
+        mxnet-cu80 \
+	Cython \
+	ipykernel \
+	jupyter \
+	path.py \
+	Pillow \
+	pygments \
+	six \
+	sphinx \
+	wheel \
+	zmq \
+	&& \
 	python3 -m ipykernel.kernelspec
 
 # Install other useful Python packages using pip
 RUN pip install --no-cache-dir --upgrade ipython && \
-	pip install --no-cache-dir \
-                mxnet-cu80 \
-		Cython \
-		ipykernel \
-		jupyter \
-		path.py \
-		Pillow \
-		pygments \
-		six \
-		sphinx \
-		wheel \
-		zmq \
-		&& \
+    pip install --no-cache-dir \
+        scipy \
+        sklearn \
+        pandas \
+        matplotlib \
+        mxnet-cu80 \
+	Cython \
+	ipykernel \
+	jupyter \
+	path.py \
+	Pillow \
+	pygments \
+	six \
+	sphinx \
+	wheel \
+	zmq \
+	&& \
 	python -m ipykernel.kernelspec
 
 # Set up notebook config
